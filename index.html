@@ -72,39 +72,39 @@ a {
   color:#fff;
 }
 
-<section class="hero" style="display:flex; flex-direction:column; align-items:center; text-align:center; gap:40px;">
+.hero {
+  display:grid;
+  grid-template-columns:minmax(320px,1fr) 1.1fr;
+  align-items:center;
+  gap:64px;
+  min-height:72vh;
+  padding:96px 0 112px;
+}
 
-  <!-- BIG LOGO -->
-  <img src="logo.png" class="hero-logo" style="
-    max-width:800px;
-    width:90%;
-    filter:invert(1);
-  ">
+.hero-logo {
+  max-width:690px;
+  width:100%;
+  display:block;
+  filter:invert(1);
+}
 
-  <!-- SMALLER TEXT -->
-  <div>
-    <h1 class="hero-title" style="
-      font-size:clamp(32px,5vw,72px);
-      letter-spacing:.08em;
-      margin-bottom:10px;
-    ">
-      Pluto Flux Records
-    </h1>
+.hero-title {
+  margin:0;
+  font-size:clamp(52px,7vw,118px);
+  line-height:.94;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#fff;
+}
 
-    <p class="hero-subtitle" style="
-      font-size:16px;
-      letter-spacing:.25em;
-      opacity:.8;
-    ">
-      record.label.creative.house
-    </p>
-
-    <div class="scroll-note" style="margin-top:30px;">
-      Scroll
-    </div>
-  </div>
-
-</section>
+.hero-subtitle {
+  margin:18px 0 0;
+  color:#fff;
+  font-size:clamp(17px,1.9vw,24px);
+  letter-spacing:.14em;
+  text-transform:lowercase;
+}
 
 .scroll-note {
   margin-top:46px;
