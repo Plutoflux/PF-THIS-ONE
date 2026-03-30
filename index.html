@@ -5,348 +5,304 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pluto Flux Records</title>
   <style>
-    :root {
-      --bg: #000000;
-      --fg: #ffffff;
-      --muted: rgba(255, 255, 255, 0.7);
-      --soft: rgba(255, 255, 255, 0.45);
-      --line: rgba(255, 255, 255, 0.1);
-    }
+:root {
+  --bg:#000;
+  --fg:#fff;
+  --muted:rgba(255,255,255,.72);
+  --soft:rgba(255,255,255,.5);
+  --line:rgba(255,255,255,.12);
+}
 
-    * {
-      box-sizing: border-box;
-    }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+a { color:inherit; text-decoration:none; }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: Arial, Helvetica, sans-serif;
-    }
+.container {
+  max-width:1180px;
+  margin:auto;
+  padding:32px 24px 56px;
+}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding:0 0 22px;
+  border-bottom:1px solid var(--line);
+}
 
-    .container {
-      width: 100%;
-      max-width: 1152px;
-      margin: 0 auto;
-      padding: 32px 24px;
-    }
+.brand,
+.nav-link,
+.footer-link,
+.footer p {
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--line);
-    }
+.brand {
+  font-size:20px;
+  font-weight:600;
+}
 
-    .brand {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--fg);
-    }
+.nav-link,
+.footer,
+.footer-link {
+  color:var(--muted);
+  transition:color .25s ease, opacity .25s ease;
+}
 
-    .nav-link {
-      font-size: 14px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color 0.2s ease;
-    }
+.nav-link:hover,
+.footer-link:hover { color:var(--fg); }
 
-    .nav-link:hover,
-    .footer-link:hover {
-      color: var(--fg);
-    }
+.hero {
+  display:grid;
+  grid-template-columns:minmax(280px,.9fr) 1.1fr;
+  align-items:center;
+  gap:64px;
+  min-height:72vh;
+  padding:96px 0 112px;
+}
 
-    .hero {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      align-items: center;
-      gap: 40px;
-      min-height: 70vh;
-      padding: 80px 0 112px;
-    }
+.hero-logo {
+  max-width:460px;
+  width:100%;
+  display:block;
+  filter:invert(1);
+}
 
-    .hero-logo {
-      width: 100%;
-      max-width: 420px;
-      display: block;
-      margin-bottom: 32px;
-      filter: invert(1);
-    }
+.hero-title {
+  margin:0;
+  font-size:clamp(52px,7vw,118px);
+  line-height:.94;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
 
-    .hero-title {
-      margin: 0;
-      font-size: clamp(48px, 7vw, 112px);
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      line-height: 0.98;
-      text-transform: uppercase;
-      color: var(--fg);
-    }
+.hero-subtitle {
+  margin:18px 0 0;
+  color:var(--muted);
+  font-size:clamp(17px,1.9vw,24px);
+  letter-spacing:.14em;
+  text-transform:lowercase;
+}
 
-    .hero-subtitle {
-      margin: 16px 0 0;
-      font-size: clamp(18px, 2vw, 24px);
-      letter-spacing: 0.12em;
-      text-transform: lowercase;
-      color: var(--muted);
-    }
+.scroll-note {
+  margin-top:46px;
+  color:var(--soft);
+  font-size:12px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+}
 
-    .scroll-note {
-      margin-top: 48px;
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
-    }
+.about,
+.works,
+.footer {
+  border-top:1px solid var(--line);
+}
 
-    .about,
-    .works,
-    .footer {
-      border-top: 1px solid var(--line);
-    }
+.about {
+  max-width:980px;
+  padding:64px 0 74px;
+}
 
-    .about {
-      max-width: 960px;
-      padding: 64px 0 80px;
-      color: #ffffff;
-    }
+.about p {
+  margin:0;
+  color:#fff;
+  font-size:clamp(19px,2vw,23px);
+  line-height:1.85;
+}
 
-    .about p {
-      margin: 0;
-      font-size: clamp(18px, 2vw, 22px);
-      line-height: 1.8;
-      color: #ffffff;
-    }
+.works {
+  padding:64px 0 80px;
+}
 
-    .works {
-      padding: 64px 0 80px;
-    }
+.section-title {
+  margin:0;
+  color:#fff;
+  font-size:clamp(28px,3vw,38px);
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
 
-    .section-title {
-      margin: 0;
-      font-size: clamp(28px, 3vw, 36px);
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #ffffff;
-    }
+.works-list {
+  margin-top:38px;
+  display:flex;
+  flex-direction:column;
+}
 
-    .works-list {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-    }
+.artist {
+  padding:34px 0 40px;
+  border-bottom:1px solid var(--line);
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .8s ease, transform .8s ease;
+}
 
-    .artist {
-      padding-bottom: 48px;
-      border-bottom: 1px solid var(--line);
-    }
+.artist.is-visible {
+  opacity:1;
+  transform:translateY(0);
+}
 
-    .artist:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
+.artist:last-child {
+  border-bottom:0;
+  padding-bottom:0;
+}
 
-    .artist-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 20px;
-      min-width: 0;
-    }
+.artist-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-bottom:22px;
+  min-width:0;
+}
 
-    .artist-name {
-      margin: 0;
-      font-size: clamp(20px, 2.4vw, 40px);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--fg);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 0;
-      flex: 1 1 auto;
-    }
+.artist-name {
+  margin:0;
+  flex:1 1 auto;
+  min-width:0;
+  color:#fff;
+  font-size:clamp(20px,2.45vw,42px);
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
-    .artist-mark {
-      height: 44px;
-      width: auto;
-      opacity: 1;
-      display: block;
-      filter: invert(1);
-      flex: 0 0 auto;
-    }
+.artist-mark {
+  height:44px;
+  width:auto;
+  display:block;
+  filter:invert(1);
+  flex:0 0 auto;
+}
 
-    .embed-grid {
-      display: grid;
-      gap: 24px;
-      grid-template-columns: 1fr;
-    }
+.embed-grid {
+  display:grid;
+  gap:24px;
+  grid-template-columns:1fr;
+}
 
-    .embed-grid.two {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+.embed-grid.two {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
 
-    .label {
-      margin: 0 0 12px;
-      font-size: 12px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-    }
+.embed-col {
+  transition:transform .28s ease, opacity .28s ease;
+}
 
-    .frame {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: #000000;
-    }
+.embed-col:hover {
+  transform:translateY(-3px);
+}
 
-    iframe {
-      display: block;
-      width: 100%;
-      border: 0;
-    }
+.label {
+  margin:0 0 12px;
+  color:rgba(255,255,255,.62);
+  font-size:12px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+}
 
-    .footer {
-      margin-top: 32px;
-      padding: 32px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      font-size: 14px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(0, 0, 0, 0.6);
-    }
+.frame {
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#000;
+  transition:border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
 
-    .footer-link {
-      transition: color 0.2s ease;
-    }
+.frame:hover {
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 0 0 1px rgba(255,255,255,.05);
+}
 
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        padding: 64px 0 88px;
-      }
+iframe {
+  display:block;
+  width:100%;
+  border:0;
+}
 
-      .embed-grid.two {
-        grid-template-columns: 1fr;
-      }
-    }
+.footer {
+  margin-top:24px;
+  padding:28px 0 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  font-size:13px;
+  color:var(--muted);
+}
 
-    @media (max-width: 640px) {
-      .container {
-        padding: 20px 16px;
-      }
+.reveal {
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .8s ease, transform .8s ease;
+}
 
-      .header {
-        padding-bottom: 18px;
-      }
+.reveal.is-visible {
+  opacity:1;
+  transform:translateY(0);
+}
 
-      .brand,
-      .nav-link,
-      .footer,
-      .footer-link {
-        letter-spacing: 0.12em;
-      }
+@media (max-width:900px){
+  .hero {
+    grid-template-columns:1fr;
+    gap:34px;
+    min-height:auto;
+    padding:54px 0 78px;
+  }
 
-      .hero {
-        gap: 28px;
-        padding: 40px 0 64px;
-      }
+  .embed-grid.two { grid-template-columns:1fr; }
+}
 
-      .hero-logo {
-        max-width: 220px;
-        margin-bottom: 20px;
-      }
-
-      .hero-title {
-        font-size: clamp(34px, 10vw, 56px);
-        letter-spacing: 0.05em;
-      }
-
-      .hero-subtitle {
-        font-size: 16px;
-        letter-spacing: 0.08em;
-      }
-
-      .scroll-note {
-        margin-top: 28px;
-        font-size: 12px;
-      }
-
-      .about,
-      .works {
-        padding: 44px 0 56px;
-      }
-
-      .about p {
-        font-size: 16px;
-        line-height: 1.7;
-      }
-
-      .works-list {
-        margin-top: 28px;
-        gap: 32px;
-      }
-
-      .artist {
-        padding-bottom: 32px;
-      }
-
-      .artist-head {
-        gap: 12px;
-        margin-bottom: 16px;
-      }
-
-      .artist-name {
-        font-size: clamp(16px, 5vw, 24px);
-        letter-spacing: 0.04em;
-      }
-
-      .artist-mark {
-        height: 28px;
-      }
-
-      .label {
-        margin-bottom: 10px;
-        letter-spacing: 0.18em;
-      }
-
-      .footer {
-        padding: 24px 0;
-        font-size: 12px;
-        gap: 14px;
-      }
-    }
-  </style>
+@media (max-width:640px){
+  .container { padding:20px 16px 40px; }
+  .header { padding-bottom:18px; }
+  .brand,
+  .nav-link,
+  .footer,
+  .footer-link,
+  .footer p { letter-spacing:.12em; }
+  .hero { gap:26px; padding:34px 0 58px; }
+  .hero-logo { max-width:260px; }
+  .hero-title { font-size:clamp(36px,10vw,60px); letter-spacing:.04em; }
+  .hero-subtitle { font-size:15px; letter-spacing:.08em; }
+  .scroll-note { margin-top:28px; }
+  .about, .works { padding:44px 0 54px; }
+  .about p { font-size:16px; line-height:1.75; }
+  .works-list { margin-top:26px; }
+  .artist { padding:28px 0 30px; }
+  .artist-head { gap:12px; margin-bottom:16px; }
+  .artist-name { font-size:clamp(16px,5vw,24px); }
+  .artist-mark { height:28px; }
+  .label { margin-bottom:10px; letter-spacing:.18em; }
+  .footer { padding-top:22px; font-size:12px; gap:12px; }
+}
+</style>
 </head>
 <body>
   <div class="container">
     <header class="header">
       <a href="#top" class="brand">Pluto Flux</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
+        <a href="#artists" class="nav-link">Artists</a>
+        <a href="#services" class="nav-link">Production Services</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
     </header>
 
     <main id="top">
@@ -354,14 +310,14 @@
         <div>
           <img src="logo.png" alt="Pluto Flux Records" class="hero-logo" />
         </div>
-        <div>
+        <div class="reveal">
           <h1 class="hero-title">Pluto Flux Records</h1>
           <p class="hero-subtitle">record.label.creative.house</p>
           <div class="scroll-note">Scroll</div>
         </div>
       </section>
 
-      <section class="about">
+      <section class="about reveal">
         <p>
           Founded by Richard Wicander, Pluto Flux is designed to support artists with front to back production,
           release strategy, and long-term creative direction tailored to each artist. The mission is simple:
@@ -369,16 +325,17 @@
         </p>
       </section>
 
-      <section class="works">
-        <h2 class="section-title">Recent Works</h2>
+      <section id="artists" class="works">
+        <h2 class="section-title reveal">Recent Works</h2>
 
         <div class="works-list">
-          <article class="artist">
+          <article class="artist reveal">
             <div class="artist-head">
               <h3 class="artist-name">Fire From The Gods</h3>
               <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
             </div>
             <div class="embed-grid two">
+              <div class="embed-col">
               <div>
                 <p class="label">Spotify</p>
                 <div class="frame">
@@ -391,7 +348,8 @@
                   ></iframe>
                 </div>
               </div>
-              <div>
+              </div>
+              <div class="embed-col">
                 <p class="label">Video</p>
                 <div class="frame">
                   <iframe
@@ -407,12 +365,13 @@
             </div>
           </article>
 
-          <article class="artist">
+          <article class="artist reveal">
             <div class="artist-head">
               <h3 class="artist-name">Sylar</h3>
               <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
             </div>
             <div class="embed-grid two">
+              <div class="embed-col">
               <div>
                 <p class="label">Spotify</p>
                 <div class="frame">
@@ -425,7 +384,8 @@
                   ></iframe>
                 </div>
               </div>
-              <div>
+              </div>
+              <div class="embed-col">
                 <p class="label">Video</p>
                 <div class="frame">
                   <iframe
@@ -441,13 +401,13 @@
             </div>
           </article>
 
-          <article class="artist">
+          <article class="artist reveal">
             <div class="artist-head">
               <h3 class="artist-name">Framing Hanley</h3>
               <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
             </div>
             <div class="embed-grid">
-              <div>
+              <div class="embed-col">
                 <p class="label">Spotify</p>
                 <div class="frame">
                   <iframe
@@ -462,13 +422,13 @@
             </div>
           </article>
 
-          <article class="artist">
+          <article class="artist reveal">
             <div class="artist-head">
               <h3 class="artist-name">Divide The Fall</h3>
               <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
             </div>
             <div class="embed-grid">
-              <div>
+              <div class="embed-col">
                 <p class="label">Spotify</p>
                 <div class="frame">
                   <iframe
@@ -483,13 +443,13 @@
             </div>
           </article>
 
-          <article class="artist">
+          <article class="artist reveal">
             <div class="artist-head">
               <h3 class="artist-name">Yung Mo$h</h3>
               <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
             </div>
             <div class="embed-grid">
-              <div>
+              <div class="embed-col">
                 <p class="label">Spotify</p>
                 <div class="frame">
                   <iframe
@@ -507,11 +467,42 @@
       </section>
     </main>
 
-    <footer id="contact" class="footer">
+    <section id="services" class="about reveal">
+        <h2 class="section-title" style="margin-bottom:24px;">Production Services</h2>
+        <p>
+          For production services, songwriting, recording, mixing, creative development, and release strategy inquiries,
+          contact Pluto Flux Records directly. Richard Wicander works front to back with artists to develop records with identity,
+          impact, and long-term vision.
+        </p>
+        <p style="margin-top:28px;">
+          Richard Wicander is a producer, publishing A&amp;R, audio engineer, drummer, guitarist, and vocalist working across rock,
+          metal, hip hop, and pop. Through Pluto Flux and his wider work in music, he helps artists shape records from inception to release,
+          combining creative direction with real-world production and strategy.
+        </p>
+        <p style="margin-top:28px;">
+          <a href="https://credits.muso.ai/profile/c0ac6ffe-35cd-452a-bca2-6fc71d6ecb69" target="_blank" rel="noopener noreferrer" class="footer-link" style="color:#fff;">
+            View Richard Wicander credits on Muso.ai
+          </a>
+        </p>
+      </section>
+
+      <footer id="contact" class="footer">
       <a href="#top" class="footer-link">Home</a>
       <a href="mailto:info@plutoflux.com" class="footer-link">info@plutoflux.com</a>
       <p>© 2026 Pluto Flux Records</p>
     </footer>
   </div>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>
