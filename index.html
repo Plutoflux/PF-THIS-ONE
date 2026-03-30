@@ -6,11 +6,11 @@
   <title>Pluto Flux Records</title>
   <style>
     :root {
-      --bg: #000000;
-      --fg: #ffffff;
-      --muted: rgba(255, 255, 255, 0.7);
-      --soft: rgba(255, 255, 255, 0.45);
-      --line: rgba(255, 255, 255, 0.1);
+      --bg: #ffffff;
+      --fg: #000000;
+      --muted: rgba(0, 0, 0, 0.7);
+      --soft: rgba(0, 0, 0, 0.45);
+      --line: rgba(0, 0, 0, 0.1);
     }
 
     * {
@@ -110,7 +110,7 @@
       font-size: 14px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(0, 0, 0, 0.6);
     }
 
     .about,
@@ -122,17 +122,13 @@
     .about {
       max-width: 960px;
       padding: 64px 0 80px;
-      color: rgba(255, 255, 255, 0.82);
+      color: rgba(0, 0, 0, 0.82);
     }
 
     .about p {
       margin: 0;
       font-size: clamp(18px, 2vw, 22px);
       line-height: 1.8;
-    }
-
-    .about p + p {
-      margin-top: 32px;
     }
 
     .works {
@@ -168,8 +164,8 @@
     .artist-head {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      justify-content: flex-start;
+      gap: 18px;
       margin-bottom: 20px;
     }
 
@@ -183,9 +179,9 @@
     }
 
     .artist-mark {
-      height: 32px;
+      height: 40px;
       width: auto;
-      opacity: 0.75;
+      opacity: 0.9;
       display: block;
     }
 
@@ -210,7 +206,7 @@
     .frame {
       overflow: hidden;
       border: 1px solid var(--line);
-      background: #000;
+      background: #ffffff;
     }
 
     iframe {
@@ -230,7 +226,7 @@
       font-size: 14px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(0, 0, 0, 0.6);
     }
 
     .footer-link {
@@ -271,17 +267,9 @@
 
       <section class="about">
         <p>
-          Pluto Flux Records is an artist-first record label and creative house focused on ever-evolving,
-          genre-bending music. Built around transparency, strong creative identity, and modern heavy music,
-          Pluto Flux develops records that move between rock, metal, hip hop, and whatever lives between the cracks.
-        </p>
-        <p>
-          Founded by Richard Wicander, Pluto Flux is designed to support artists with real production,
-          release strategy, and long-term creative direction instead of copy-paste campaigns. The mission is simple:
+          Founded by Richard Wicander, Pluto Flux is designed to support artists with front to back production,
+          release strategy, and long-term creative direction tailored to each artist. The mission is simple:
           create music that keeps evolving. Change is the only constant in life. Embrace the Unknown.
-        </p>
-        <p>
-          Current featured artists include Fire From The Gods, Sylar, Framing Hanley, Divide The Fall, and Yung Mo$h.
         </p>
       </section>
 
