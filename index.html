@@ -1,508 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pluto Flux Records</title>
-  <style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pluto Flux Records</title>
+
+<style>
 :root {
   --bg:#000;
   --fg:#fff;
-  --muted:rgba(255,255,255,.72);
-  --soft:rgba(255,255,255,.5);
+  --muted:rgba(255,255,255,.7);
   --line:rgba(255,255,255,.12);
 }
 
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
 body {
   margin:0;
   background:var(--bg);
   color:var(--fg);
   font-family:Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
 }
 
-a { color:inherit; text-decoration:none; }
-
-.container {
-  max-width:1180px;
-  margin:auto;
-  padding:32px 24px 56px;
-}
+.container {max-width:1150px;margin:auto;padding:32px 24px;}
 
 .header {
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  gap:24px;
-  padding:0 0 22px;
   border-bottom:1px solid var(--line);
+  padding-bottom:20px;
 }
 
-.brand,
-.nav-link,
-.footer-link,
-.footer p {
-  letter-spacing:.18em;
-  text-transform:uppercase;
-}
-
-.brand {
-  font-size:20px;
-  font-weight:600;
-}
-
-.nav-link,
-.footer,
-.footer-link {
-  color:var(--muted);
-  transition:color .25s ease, opacity .25s ease;
-}
-
-.nav-link:hover,
-.footer-link:hover { color:var(--fg); }
+.nav {display:flex;gap:20px;}
 
 .hero {
   display:grid;
-  grid-template-columns:minmax(280px,.9fr) 1.1fr;
+  grid-template-columns:1fr 1fr;
   align-items:center;
-  gap:64px;
-  min-height:72vh;
-  padding:96px 0 112px;
+  gap:50px;
+  padding:80px 0;
 }
 
-.hero-logo {
-  max-width:460px;
-  width:100%;
-  display:block;
-  filter:invert(1);
-}
+.hero-logo {max-width:420px;filter:invert(1);}
+.hero-title {font-size:clamp(50px,7vw,110px);text-transform:uppercase;}
 
-.hero-title {
-  margin:0;
-  font-size:clamp(52px,7vw,118px);
-  line-height:.94;
-  font-weight:600;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-}
+.about {border-top:1px solid var(--line);padding:60px 0;}
 
-.hero-subtitle {
-  margin:18px 0 0;
-  color:var(--muted);
-  font-size:clamp(17px,1.9vw,24px);
-  letter-spacing:.14em;
-  text-transform:lowercase;
-}
-
-.scroll-note {
-  margin-top:46px;
-  color:var(--soft);
-  font-size:12px;
-  letter-spacing:.28em;
-  text-transform:uppercase;
-}
-
-.about,
-.works,
-.footer {
-  border-top:1px solid var(--line);
-}
-
-.about {
-  max-width:980px;
-  padding:64px 0 74px;
-}
-
-.about p {
-  margin:0;
-  color:#fff;
-  font-size:clamp(19px,2vw,23px);
-  line-height:1.85;
-}
-
-.works {
-  padding:64px 0 80px;
-}
-
-.section-title {
-  margin:0;
-  color:#fff;
-  font-size:clamp(28px,3vw,38px);
-  font-weight:600;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-.works-list {
-  margin-top:38px;
-  display:flex;
-  flex-direction:column;
-}
-
-.artist {
-  padding:34px 0 40px;
-  border-bottom:1px solid var(--line);
-  opacity:0;
-  transform:translateY(28px);
-  transition:opacity .8s ease, transform .8s ease;
-}
-
-.artist.is-visible {
-  opacity:1;
-  transform:translateY(0);
-}
-
-.artist:last-child {
-  border-bottom:0;
-  padding-bottom:0;
-}
+.artist {border-bottom:1px solid var(--line);padding:40px 0;}
 
 .artist-head {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:18px;
-  margin-bottom:22px;
-  min-width:0;
 }
 
 .artist-name {
-  margin:0;
-  flex:1 1 auto;
-  min-width:0;
-  color:#fff;
-  font-size:clamp(20px,2.45vw,42px);
-  font-weight:500;
-  letter-spacing:.06em;
-  text-transform:uppercase;
+  font-size:clamp(20px,3vw,40px);
   white-space:nowrap;
   overflow:hidden;
-  text-overflow:ellipsis;
 }
 
-.artist-mark {
-  height:44px;
-  width:auto;
-  display:block;
-  filter:invert(1);
-  flex:0 0 auto;
-}
+.artist-mark {height:44px;filter:invert(1);}
 
 .embed-grid {
   display:grid;
-  gap:24px;
-  grid-template-columns:1fr;
+  gap:20px;
 }
 
 .embed-grid.two {
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:1fr 1fr;
 }
 
-.embed-col {
-  transition:transform .28s ease, opacity .28s ease;
-}
-
-.embed-col:hover {
-  transform:translateY(-3px);
-}
-
-.label {
-  margin:0 0 12px;
-  color:rgba(255,255,255,.62);
-  font-size:12px;
-  letter-spacing:.25em;
-  text-transform:uppercase;
-}
-
-.frame {
-  overflow:hidden;
-  border:1px solid var(--line);
-  background:#000;
-  transition:border-color .25s ease, box-shadow .25s ease, transform .25s ease;
-}
-
-.frame:hover {
-  border-color:rgba(255,255,255,.22);
-  box-shadow:0 0 0 1px rgba(255,255,255,.05);
-}
-
-iframe {
-  display:block;
-  width:100%;
-  border:0;
-}
+.frame {border:1px solid var(--line);}
+iframe {width:100%;border:0;}
 
 .footer {
-  margin-top:24px;
-  padding:28px 0 0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-  font-size:13px;
-  color:var(--muted);
+  border-top:1px solid var(--line);
+  padding-top:30px;
+  color:rgba(255,255,255,.7);
 }
 
-.reveal {
-  opacity:0;
-  transform:translateY(26px);
-  transition:opacity .8s ease, transform .8s ease;
-}
-
-.reveal.is-visible {
-  opacity:1;
-  transform:translateY(0);
-}
-
-@media (max-width:900px){
-  .hero {
-    grid-template-columns:1fr;
-    gap:34px;
-    min-height:auto;
-    padding:54px 0 78px;
-  }
-
-  .embed-grid.two { grid-template-columns:1fr; }
-}
-
-@media (max-width:640px){
-  .container { padding:20px 16px 40px; }
-  .header { padding-bottom:18px; }
-  .brand,
-  .nav-link,
-  .footer,
-  .footer-link,
-  .footer p { letter-spacing:.12em; }
-  .hero { gap:26px; padding:34px 0 58px; }
-  .hero-logo { max-width:260px; }
-  .hero-title { font-size:clamp(36px,10vw,60px); letter-spacing:.04em; }
-  .hero-subtitle { font-size:15px; letter-spacing:.08em; }
-  .scroll-note { margin-top:28px; }
-  .about, .works { padding:44px 0 54px; }
-  .about p { font-size:16px; line-height:1.75; }
-  .works-list { margin-top:26px; }
-  .artist { padding:28px 0 30px; }
-  .artist-head { gap:12px; margin-bottom:16px; }
-  .artist-name { font-size:clamp(16px,5vw,24px); }
-  .artist-mark { height:28px; }
-  .label { margin-bottom:10px; letter-spacing:.18em; }
-  .footer { padding-top:22px; font-size:12px; gap:12px; }
+@media(max-width:900px){
+.hero{grid-template-columns:1fr}
+.embed-grid.two{grid-template-columns:1fr}
 }
 </style>
 </head>
+
 <body>
-  <div class="container">
-    <header class="header">
-      <a href="#top" class="brand">Pluto Flux</a>
-      <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:center; justify-content:flex-end;">
-        <a href="#artists" class="nav-link">Artists</a>
-        <a href="#services" class="nav-link">Production Services</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </div>
-    </header>
+<div class="container">
 
-    <main id="top">
-      <section class="hero">
-        <div>
-          <img src="logo.png" alt="Pluto Flux Records" class="hero-logo" />
-        </div>
-        <div class="reveal">
-          <h1 class="hero-title">Pluto Flux Records</h1>
-          <p class="hero-subtitle">record.label.creative.house</p>
-          <div class="scroll-note">Scroll</div>
-        </div>
-      </section>
-
-      <section class="about reveal">
-        <p>
-          Founded by Richard Wicander, Pluto Flux is designed to support artists with front to back production,
-          release strategy, and long-term creative direction tailored to each artist. The mission is simple:
-          create music that keeps evolving. Change is the only constant in life. Embrace the Unknown.
-        </p>
-      </section>
-
-      <section id="artists" class="works">
-        <h2 class="section-title reveal">Recent Works</h2>
-
-        <div class="works-list">
-          <article class="artist reveal">
-            <div class="artist-head">
-              <h3 class="artist-name">Fire From The Gods</h3>
-              <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
-            </div>
-            <div class="embed-grid two">
-              <div class="embed-col">
-              <div>
-                <p class="label">Spotify</p>
-                <div class="frame">
-                  <iframe
-                    src="https://open.spotify.com/embed/artist/6yeRY2d7gubXoymv3DAYhS"
-                    height="352"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title="Fire From The Gods Spotify"
-                  ></iframe>
-                </div>
-              </div>
-              </div>
-              <div class="embed-col">
-                <p class="label">Video</p>
-                <div class="frame">
-                  <iframe
-                    src="https://www.youtube.com/embed/3_LxmVysn2I"
-                    style="aspect-ratio:16/9; min-height:315px;"
-                    title="Fire From The Gods YouTube"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="artist reveal">
-            <div class="artist-head">
-              <h3 class="artist-name">Sylar</h3>
-              <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
-            </div>
-            <div class="embed-grid two">
-              <div class="embed-col">
-              <div>
-                <p class="label">Spotify</p>
-                <div class="frame">
-                  <iframe
-                    src="https://open.spotify.com/embed/artist/78vP5COn64VXULgkIQovEA"
-                    height="352"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title="Sylar Spotify"
-                  ></iframe>
-                </div>
-              </div>
-              </div>
-              <div class="embed-col">
-                <p class="label">Video</p>
-                <div class="frame">
-                  <iframe
-                    src="https://www.youtube.com/embed/uR02UoZroQs"
-                    style="aspect-ratio:16/9; min-height:315px;"
-                    title="Sylar YouTube"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="artist reveal">
-            <div class="artist-head">
-              <h3 class="artist-name">Framing Hanley</h3>
-              <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
-            </div>
-            <div class="embed-grid">
-              <div class="embed-col">
-                <p class="label">Spotify</p>
-                <div class="frame">
-                  <iframe
-                    src="https://open.spotify.com/embed/artist/3niqfoc7C6lIeCNVz8iZYE"
-                    height="352"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title="Framing Hanley Spotify"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="artist reveal">
-            <div class="artist-head">
-              <h3 class="artist-name">Divide The Fall</h3>
-              <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
-            </div>
-            <div class="embed-grid">
-              <div class="embed-col">
-                <p class="label">Spotify</p>
-                <div class="frame">
-                  <iframe
-                    src="https://open.spotify.com/embed/artist/3w02P5LROmfJbh1YFHvtmC"
-                    height="352"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title="Divide The Fall Spotify"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="artist reveal">
-            <div class="artist-head">
-              <h3 class="artist-name">Yung Mo$h</h3>
-              <img src="logo.png" alt="Pluto Flux" class="artist-mark" />
-            </div>
-            <div class="embed-grid">
-              <div class="embed-col">
-                <p class="label">Spotify</p>
-                <div class="frame">
-                  <iframe
-                    src="https://open.spotify.com/embed/artist/6Sav6oWBRdmKNqjROoDOqB"
-                    height="352"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title="Yung Mo$h Spotify"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <section id="services" class="about reveal">
-        <h2 class="section-title" style="margin-bottom:24px;">Production Services</h2>
-        <p>
-          For production services, songwriting, recording, mixing, creative development, and release strategy inquiries,
-          contact Pluto Flux Records directly. Richard Wicander works front to back with artists to develop records with identity,
-          impact, and long-term vision.
-        </p>
-        <p style="margin-top:28px;">
-          Richard Wicander is a producer, publishing A&amp;R, audio engineer, drummer, guitarist, and vocalist working across rock,
-          metal, hip hop, and pop. Through Pluto Flux and his wider work in music, he helps artists shape records from inception to release,
-          combining creative direction with real-world production and strategy.
-        </p>
-        <p style="margin-top:28px;">
-          <a href="https://credits.muso.ai/profile/c0ac6ffe-35cd-452a-bca2-6fc71d6ecb69" target="_blank" rel="noopener noreferrer" class="footer-link" style="color:#fff;">
-            View Richard Wicander credits on Muso.ai
-          </a>
-        </p>
-      </section>
-
-      <footer id="contact" class="footer">
-      <a href="#top" class="footer-link">Home</a>
-      <a href="mailto:info@plutoflux.com" class="footer-link">info@plutoflux.com</a>
-      <p>© 2026 Pluto Flux Records</p>
-    </footer>
+<header class="header">
+  <div>Pluto Flux</div>
+  <div class="nav">
+    <a href="#artists">Artists</a>
+    <a href="#services">Production Services</a>
+    <a href="#contact">Contact</a>
   </div>
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.14 });
+</header>
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-  </script>
+<section class="hero">
+  <img src="logo.png" class="hero-logo">
+  <div>
+    <h1 class="hero-title">Pluto Flux Records</h1>
+    <p>record.label.creative.house</p>
+  </div>
+</section>
+
+<section class="about">
+<p>
+Founded by Richard Wicander, Pluto Flux is designed to support artists with front to back production,
+release strategy, and long-term creative direction tailored to each artist. The mission is simple:
+create music that keeps evolving. Change is the only constant in life. Embrace the Unknown.
+</p>
+</section>
+
+<section id="artists">
+
+<!-- FFTG -->
+<div class="artist">
+<div class="artist-head">
+<h3 class="artist-name">Fire From The Gods</h3>
+<img src="logo.png" class="artist-mark">
+</div>
+<div class="embed-grid two">
+<iframe src="https://open.spotify.com/embed/artist/6yeRY2d7gubXoymv3DAYhS" height="352"></iframe>
+<iframe src="https://www.youtube.com/embed/3_LxmVysn2I"></iframe>
+</div>
+</div>
+
+<!-- Sylar -->
+<div class="artist">
+<div class="artist-head">
+<h3 class="artist-name">Sylar</h3>
+<img src="logo.png" class="artist-mark">
+</div>
+<div class="embed-grid two">
+<iframe src="https://open.spotify.com/embed/artist/78vP5COn64VXULgkIQovEA" height="352"></iframe>
+<iframe src="https://www.youtube.com/embed/uR02UoZroQs"></iframe>
+</div>
+</div>
+
+<!-- Framing Hanley -->
+<div class="artist">
+<div class="artist-head">
+<h3 class="artist-name">Framing Hanley</h3>
+<img src="logo.png" class="artist-mark">
+</div>
+<div class="embed-grid two">
+<iframe src="https://open.spotify.com/embed/artist/3niqfoc7C6lIeCNVz8iZYE" height="352"></iframe>
+<iframe src="https://www.youtube.com/embed/v40uG584o58"></iframe>
+</div>
+</div>
+
+<!-- Divide The Fall -->
+<div class="artist">
+<div class="artist-head">
+<h3 class="artist-name">Divide The Fall</h3>
+<img src="logo.png" class="artist-mark">
+</div>
+<div class="embed-grid two">
+<iframe src="https://open.spotify.com/embed/artist/3w02P5LROmfJbh1YFHvtmC" height="352"></iframe>
+<iframe src="https://www.youtube.com/embed/LIbQkvr0GnE"></iframe>
+</div>
+</div>
+
+<!-- Yung Mo$h -->
+<div class="artist">
+<div class="artist-head">
+<h3 class="artist-name">Yung Mo$h</h3>
+<img src="logo.png" class="artist-mark">
+</div>
+<div class="embed-grid two">
+<iframe src="https://open.spotify.com/embed/artist/6Sav6oWBRdmKNqjROoDOqB" height="352"></iframe>
+<iframe src="https://www.youtube.com/embed/u099hqusCHA"></iframe>
+</div>
+</div>
+
+</section>
+
+<section id="services" class="about">
+<h2>Production Services</h2>
+<p>
+For production services, songwriting, recording, mixing, creative development, and release strategy inquiries contact Pluto Flux.
+</p>
+<p>
+Richard Wicander is a producer, publishing A&R, audio engineer, drummer, guitarist, and vocalist working across rock, metal, hip hop, and pop.
+</p>
+<p>
+<a href="https://credits.muso.ai/profile/c0ac6ffe-35cd-452a-bca2-6fc71d6ecb69" target="_blank">View Credits</a>
+</p>
+</section>
+
+<footer id="contact" class="footer">
+<p>© 2026 Pluto Flux Records</p>
+</footer>
+
+</div>
 </body>
 </html>
